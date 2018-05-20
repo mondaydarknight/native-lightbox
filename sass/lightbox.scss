@@ -1,0 +1,375 @@
+
+$overlay-bg: #26292E;
+$default: #ffffff;
+$brand: #FE980F;
+$font-normal: 400;
+$font-bold: 700;
+$font-family-gothic: -apple-system, BlinkMacSystemFont, "Segoe UI","Noto Sans TC","Yu Gothic",YuGothic,sans-serif;
+
+/* Setup keyframes animation*/
+@mixin keyframes($animationName) {
+
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+
+	@keyframes #{$animationName} {
+		@content;
+	}
+
+}
+
+/* prev slide in */
+@mixin slide-prev {
+	animation: slide-prev 1s ease 0s 1 normal;
+	@include keyframes(slide-prev) {
+		0% {
+        	opacity: 1;
+        	transform: translateX(0px);
+      	}
+      	
+      	35% {
+        	opacity: 0;
+        	transform: translateX(-100%);
+      	}
+      
+      	36% {
+        	opacity: 0;
+        	transform: translateX(100%);
+      	}
+      
+      	50% {
+        	opacity: 1;
+        	transform: translateX(0px);
+      	}
+	}
+}
+
+@mixin slide-next {
+	animation: slide-next 1s ease 0s 1 normal;
+	@include keyframes(slide-next) {
+		0% {
+        	opacity: 1;
+        	transform: translateX(0px);
+      	}
+      	
+      	60% {
+        	opacity: 0;
+        	transform: translateX(100%);
+      	}
+      
+      	40% {
+        	opacity: 0;
+        	transform: translateX(-100%);
+      	}
+      
+      	100% {
+        	opacity: 1;
+        	transform: translateX(0px);
+      	}
+	}
+	
+}
+
+
+.fade {
+	opacity: 0;
+}
+
+
+.show {
+	opacity: 1;
+}
+
+/* Position fixed required for IOS, Just putting overflow: hidden is not enough. */
+html.lightbox-scroll-disable {
+	overflow: hidden;
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+}
+
+.lightbox-overlay {
+	position: absolute;	
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: $overlay-bg;	
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);	
+	-webkit-transition: background .5s linear 0s, opacity 1s linear 0s;
+    -moz-transition: background .5s linear 0s, opacity 1s linear 0s;
+    -o-transition: background .5s linear 0s, opacity 1s linear 0s;
+    transition: background .5s linear 0s, opacity 1s linear 0s;
+
+    &.show {
+    	opacity: .9;
+    }
+}
+
+.lightbox {
+	position: absolute;
+	display: none;
+	left: 0;
+	width: 100%;
+	z-index: 10000;
+	text-align: center;
+	line-height: 0;
+	font-weight: $font-normal;
+	-webkit-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    -moz-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    -o-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    transition: background 0.1s linear 0s, opacity 1s linear 0s;
+
+	a {
+		img {
+			border: none;
+		}
+	}
+
+	& &-image {
+		display: block;
+		height: auto;
+		max-width: inherit;
+		max-height: none;
+		border-radius: 3px;
+		border: 2px solid $default;
+		// -webkit-transition: transform 0.65s ease-in-out;
+	    // -moz-transition: transform 0.65s ease-in-out;
+	    // -o-transition: transform 0.65s ease-in-out;
+	    // transition: transform 0.65s ease-in-out;
+		// perspective: 1000px;
+		-webkit-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    	-moz-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    	-o-transition: background 0.1s linear 0s, opacity 1s linear 0s;
+    	transition: background 0.1s linear 0s, opacity 1s linear 0s;
+				
+	    &.slide-prev {
+	    	@include slide-prev;	    	
+	    }
+
+	    &.slide-next {
+	    	@include slide-next;	    	
+	    }
+
+	}
+
+	& &-outer {
+		position: relative;
+		zoom: 1;
+		width: 250px;
+		height: 250px;
+		margin: 0 auto;
+		border-radius: 4px;
+		background-color: $overlay-bg;
+
+		&::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+
+	& &-container > .nav {
+		left: 0;
+	}
+
+	& &-loader {
+		position: absolute;
+		top: 43%;
+		left: 0;
+		height: 25%;
+		width: 100%;
+		text-align: center;
+		line-height: 0;
+	}
+
+	& &-cancel {
+		display: block;
+		width: 32px;
+		height: 32px;
+		margin: 0 auto;
+		background: url(/native-lightbox/dist/img/loading.gif) no-repeat;
+	}
+
+	& .arrow-prev,
+	& .arrow-next {
+		height: 100%;
+		cursor: pointer;
+		display: block;
+	}
+
+	& &-nav {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 10;
+	
+		a {
+			outline: none;
+			background-image: url('data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+		
+			&.arrow-prev {
+				width: 34%;
+				left: 0;
+				float: left;
+				background: url(/native-lightbox/dist/img/prev.png) left 48% no-repeat;
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  				opacity: 0;
+  				-webkit-transition: opacity 0.6s;
+	  			-moz-transition: opacity 0.6s;
+  				-o-transition: opacity 0.6s;
+  				transition: opacity 0.6s;
+
+  				&:hover {
+  					filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  					opacity: 1;
+  				}
+			}
+
+			&.arrow-next {
+				width: 64%;
+				right: 0;
+				float: right;
+				background: url(/native-lightbox/dist/img/next.png) right 48% no-repeat;
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  				opacity: 0;
+  				-webkit-transition: opacity 0.6s;
+  				-moz-transition: opacity 0.6s;
+  				-o-transition: opacity 0.6s;
+  				transition: opacity 0.6s;
+
+  				&:hover {
+  					filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  					opacity: 1;
+  				}
+			}
+		}
+	}
+
+	
+	& &-data-container {
+		margin: 0 auto;
+		padding-top: 5px;
+		zoom: 1;
+		width: 100%;
+		border-bottom-left-radius: 4px;
+		border-bottom-right-radius: 4px;
+
+		&::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+
+	& &-data {
+		padding: 0 4px;
+		color: #ccc;
+
+		.lightbox-details {
+			width: 85%;
+			float: left;
+			text-align: left;
+			line-height: 1.1em;
+		}
+
+		.lightbox-caption {
+			font-family: $font-family-gothic;	
+			font-size: 13px;
+			font-weight: $font-bold;
+			line-height: 1em;
+
+			a {
+				color: #4ae;
+			}	
+		}
+
+		.lightbox-number {
+			display: block;
+			clear: left;
+			padding-bottom: 1em;
+			font-size: 12px;
+			color: #999999;
+		}		
+	}
+
+	& &-close {
+		position: absolute;
+		display: block;
+		float: right;
+		right: 0 !important;
+	    top: 0 !important;
+	    width: 55px !important;
+	    height: 55px !important;    
+		border: 2px solid #6b6b6b;
+		border-radius: 4px;
+		background-image: none;
+		background-color: #26292E;
+	    text-align: right;
+		outline: none;
+		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  		opacity: 0.7;
+	  	-webkit-transition: background 0.1s linear 0s, opacity 0.1s linear 0s;
+	    -moz-transition: background 0.1s linear 0s, opacity 0.1s linear 0s;
+	    -o-transition: background 0.1s linear 0s, opacity 0.1s linear 0s;
+	    transition: background 0.1s linear 0s, opacity 0.1s linear 0s;
+	    cursor: pointer;
+		z-index: 9000;
+
+		&::after {
+			position: absolute;
+			content: "";			
+			background: url(/native-lightbox/dist/img/close.png) center no-repeat;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			font-size: 22px;
+			line-height: 1em;
+			color: $default;
+			speak: none;
+		}
+
+	  	&:hover {
+	  		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  			opacity: 1;
+  			-webkit-font-smoothing: antialiased;  		
+	  	}
+	}
+
+	& &-indicators {
+		position: absolute;
+		bottom: 20px;
+		width: 100%;
+		text-align: center;	
+		z-index: 10;	
+	}
+
+	& &-indicator {
+		height: 15px;
+		width: 15px;
+		border-radius: 50%;
+		display: inline-block;		
+		opacity: .35;
+		margin: 0 2.5px;
+		background-color: $default;
+		cursor: pointer !important;
+		
+		&.active {
+			background-color: $brand;
+			opacity: 1;
+		}
+	}
+
+}
+
+

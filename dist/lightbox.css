@@ -1,0 +1,220 @@
+/* Setup keyframes animation*/
+/* prev slide in */
+.fade {
+  opacity: 0; }
+.show {
+  opacity: 1; }
+/* Position fixed required for IOS, Just putting overflow: hidden is not enough. */
+html.lightbox-scroll-disable {
+  overflow: hidden;
+  position: fixed;
+  height: 100vh;
+  width: 100vw; }
+.lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: #26292E;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  transition: background .5s linear 0s, opacity 1s linear 0s; }
+.lightbox-overlay.show {
+    opacity: .9; }
+.lightbox {
+  position: absolute;
+  display: none;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  text-align: center;
+  line-height: 0;
+  font-weight: 400;
+  transition: background 0.1s linear 0s, opacity 1s linear 0s; }
+.lightbox a img {
+    border: none; }
+.lightbox .lightbox-image {
+    display: block;
+    height: auto;
+    max-width: inherit;
+    max-height: none;
+    border-radius: 3px;
+    border: 2px solid #ffffff;
+    transition: background 0.1s linear 0s, opacity 1s linear 0s; }
+.lightbox .lightbox-image.slide-prev {
+      animation: slide-prev 1s ease 0s 1 normal; }
+@keyframes slide-prev {
+  0% {
+    opacity: 1;
+    transform: translateX(0px); }
+  35% {
+    opacity: 0;
+    transform: translateX(-100%); }
+  36% {
+    opacity: 0;
+    transform: translateX(100%); }
+  50% {
+    opacity: 1;
+    transform: translateX(0px); } }
+.lightbox .lightbox-image.slide-next {
+      animation: slide-next 1s ease 0s 1 normal; }
+@keyframes slide-next {
+  0% {
+    opacity: 1;
+    transform: translateX(0px); }
+  60% {
+    opacity: 0;
+    transform: translateX(100%); }
+  40% {
+    opacity: 0;
+    transform: translateX(-100%); }
+  100% {
+    opacity: 1;
+    transform: translateX(0px); } }
+.lightbox .lightbox-outer {
+    position: relative;
+    zoom: 1;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: #26292E; }
+.lightbox .lightbox-outer::after {
+      content: "";
+      display: table;
+      clear: both; }
+.lightbox .lightbox-container > .nav {
+    left: 0; }
+.lightbox .lightbox-loader {
+    position: absolute;
+    top: 43%;
+    left: 0;
+    height: 25%;
+    width: 100%;
+    text-align: center;
+    line-height: 0; }
+.lightbox .lightbox-cancel {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    background: url(/native-lightbox/img/loading.gif) no-repeat; }
+.lightbox .arrow-prev, .lightbox .arrow-next {
+    height: 100%;
+    cursor: pointer;
+    display: block; }
+.lightbox .lightbox-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10; }
+.lightbox .lightbox-nav a {
+      outline: none;
+      background-image: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="); }
+.lightbox .lightbox-nav a.arrow-prev {
+        width: 34%;
+        left: 0;
+        float: left;
+        background: url(/native-lightbox/img/prev.png) left 48% no-repeat;
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+        transition: opacity 0.6s; }
+.lightbox .lightbox-nav a.arrow-prev:hover {
+          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+          opacity: 1; }
+.lightbox .lightbox-nav a.arrow-next {
+        width: 64%;
+        right: 0;
+        float: right;
+        background: url(/native-lightbox/img/next.png) right 48% no-repeat;
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+        transition: opacity 0.6s; }
+.lightbox .lightbox-nav a.arrow-next:hover {
+          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+          opacity: 1; }
+.lightbox .lightbox-data-container {
+    margin: 0 auto;
+    padding-top: 5px;
+    zoom: 1;
+    width: 100%;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px; }
+.lightbox .lightbox-data-container::after {
+      content: "";
+      display: table;
+      clear: both; }
+.lightbox .lightbox-data {
+    padding: 0 4px;
+    color: #ccc; }
+.lightbox .lightbox-data .lightbox-details {
+      width: 85%;
+      float: left;
+      text-align: left;
+      line-height: 1.1em; }
+.lightbox .lightbox-data .lightbox-caption {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Yu Gothic", YuGothic, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1em; }
+.lightbox .lightbox-data .lightbox-caption a {
+        color: #4ae; }
+.lightbox .lightbox-data .lightbox-number {
+      display: block;
+      clear: left;
+      padding-bottom: 1em;
+      font-size: 12px;
+      color: #999999; }
+.lightbox .lightbox-close {
+    position: absolute;
+    display: block;
+    float: right;
+    right: 0 !important;
+    top: 0 !important;
+    width: 55px !important;
+    height: 55px !important;
+    border: 2px solid #6b6b6b;
+    border-radius: 4px;
+    background-image: none;
+    background-color: #26292E;
+    text-align: right;
+    outline: none;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+    transition: background 0.1s linear 0s, opacity 0.1s linear 0s;
+    cursor: pointer;
+    z-index: 9000; }
+.lightbox .lightbox-close::after {
+      position: absolute;
+      content: "";
+      background: url(/native-lightbox/img/close.png) center no-repeat;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 22px;
+      line-height: 1em;
+      color: #ffffff;
+      speak: none; }
+.lightbox .lightbox-close:hover {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1;
+      -webkit-font-smoothing: antialiased; }
+.lightbox .lightbox-indicators {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 10; }
+.lightbox .lightbox-indicator {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: .35;
+    margin: 0 2.5px;
+    background-color: #ffffff;
+    cursor: pointer !important; }
+.lightbox .lightbox-indicator.active {
+      background-color: #FE980F;
+      opacity: 1; }
